@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="game.libretro.mupen64plus-nx"
+		name="Nintendo - Nintendo 64 (Mupen64Plus-Next)"
+		version="%VERSION%"
+		provider-name="m4xw, Hacktarux, gonetz, GLideN64 Contributors, Mupen64Plus Team">
+	<requires>
+		<import addon="game.libretro" version="1.0.0"/>
+		<import addon="game.controller.n64" version="1.0.0"/>
+	</requires>
+	<extension point="kodi.gameclient"
+			library_linux="game.libretro.mupen64plus-nx.so">
+		<platforms>Nintendo 64</platforms>
+		<extensions>n64|v64|z64|bin|u1</extensions>
+		<supports_vfs>true</supports_vfs>
+		<supports_standalone>false</supports_standalone>
+		<requires_opengl>true</requires_opengl>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<license>GPLv2</license>
+		<platform></platform>
+		<source>https://github.com/kodi-game/game.libretro.mupen64plus-nx</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+		<summary lang="en_GB">Nintendo - Nintendo 64 (Mupen64Plus-Next)</summary>
+		<description lang="da_DK">Mupen64 er en N64-emulator designet til at være multi-OS. Den bruger et plugin-system og er yderst kompatibel.</description>
+		<description lang="de_DE">Mupen64 ist ein N64-Emulator, der für mehrere Betriebssysteme konzipiert wurde. Er verwendet ein Pluginsystem und ist sehr kompatibel.</description>
+		<description lang="en_GB">Mupen64 is an N64 emulator desgined to be multi-OS. It uses a plugin system and is highly compatible.</description>
+		<description lang="es_ES">Mupen64 es un emulador de N64 diseñado para ser multi-OS. Utiliza un sistema de plugins y es altamente compatible.</description>
+		<description lang="zh_CN">Mupen64 是一款设计为多操作系统的 N64 模拟器。它使用插件系统，并且高度兼容。</description>
+	</extension>
+</addon>

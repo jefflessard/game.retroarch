@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="game.retroarch" name="RetroArch" version="1.15.0" provider-name="jefflessard">
+  <extension point="xbmc.service" library="service.py">
+    <provides/>
+  </extension>
+  <extension point="xbmc.python.script" library="script.py">
+    <provides>executable game</provides>
+  </extension>
+  <extension point="kodi.gameclient" library_linux="game.retroarch.so">
+    <extensions></extensions>
+    <supports_vfs>true</supports_vfs>
+    <supports_standalone>true</supports_standalone>
+    <requires_opengl>true</requires_opengl>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>RetroArch for LibreElec</summary>
+    <description>
+RetroArch running as a systemd service
+includes Vulkan libraries for both Intel and AMD GPUs
+    </description>
+    <disclaimer>
+    </disclaimer>
+    <news>
+    </news>
+    <platform>linux</platform>
+    <website>https://github.com/jefflessard/game.retroarch/</website>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>

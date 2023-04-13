@@ -1,0 +1,11 @@
+[Unit]
+Description=RetroArch
+
+[Service]
+WorkingDirectory=/storage/.kodi/addons/%p
+EnvironmentFile=-/tmp/game.retroarch.conf
+ExecStartPre=-/storage/.kodi/addons/%p/bin/retroarch-ctl pre
+ExecStart=/storage/.kodi/addons/%p/bin/retroarch-ctl start
+ExecStopPost=-/storage/.kodi/addons/%p/bin/retroarch-ctl post
+
+[Install]
