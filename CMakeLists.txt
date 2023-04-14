@@ -11,7 +11,8 @@ find_package(Kodi REQUIRED)
 
 include_directories(${KODI_INCLUDE_DIR}
                     ${PROJECT_SOURCE_DIR}
-		    /amdplex/kodi/xbmc/xbmc)
+		    /buildkit/xbmc/xbmc
+                    /buildkit/kodi-build/build/include/)
 
 set(PROJECT_SOURCES src/client.cpp)
 set(PROJECT_HEADERS src/client.h)

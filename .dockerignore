@@ -1,0 +1,6 @@
+.dockerignore
+.git
+Dockerfile
+build*
+game.retroarch/*.so
+*.zip
