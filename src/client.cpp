@@ -68,7 +68,6 @@ GAME_ERROR CGameRetroArch::LoadGame(const std::string& url)
 GAME_ERROR CGameRetroArch::LoadGameSpecial(SPECIAL_GAME_TYPE type, const std::vector<std::string>& urls)
 {
   kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::LoadGameSpecial");
-  //return GAME_ERROR_NO_ERROR;
   return GAME_ERROR_NOT_IMPLEMENTED;
 }
 
@@ -98,47 +97,12 @@ GAME_ERROR CGameRetroArch::GetGameTiming(game_system_timing& timing_info)
   timing_info.sample_rate=48000;
 
   return GAME_ERROR_NO_ERROR;
-  //return GAME_ERROR_NOT_IMPLEMENTED;
 }
 
 GAME_REGION CGameRetroArch::GetRegion()
 {
   kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::GetRegion");
   return GAME_REGION_NTSC;
-}
-
-GAME_ERROR CGameRetroArch::RunFrame()
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::RunFrane");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::Reset()
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::Reset");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::HwContextReset()
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::HwContextReset");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::HwContextDestroy()
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::HwContextDestroy");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-bool CGameRetroArch::HasFeature(const std::string& controller_id, const std::string& feature_name)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::HasFeature");
-  return false;
 }
 
 game_input_topology* CGameRetroArch::GetTopology()
@@ -207,101 +171,6 @@ size_t CGameRetroArch::SerializeSize()
 {
   kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::SerializeSize");
   return 0;
-}
-
-GAME_ERROR CGameRetroArch::Serialize(uint8_t* data, size_t size)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::Serialize");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::Deserialize(const uint8_t* data, size_t size)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::Deserialize");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::CheatReset()
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::CheatReset");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::GetMemory(GAME_MEMORY type, uint8_t*& data, size_t& size)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::GetMemory");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::SetCheat(unsigned int index, bool enabled, const std::string& code)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::SetCheat");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::RCGenerateHashFromFile(std::string& hash,
-                                                 unsigned int consoleID,
-                                                 const std::string& filePath)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::RCGenerateHashFromFile");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::RCGetGameIDUrl(std::string& url, const std::string& hash)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::RCGetGameIDUrl");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::RCGetPatchFileUrl(std::string& url,
-                                            const std::string& username,
-                                            const std::string& token,
-                                            unsigned int gameID)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::RCGetPatchFileUrl");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::RCPostRichPresenceUrl(std::string& url,
-                                                std::string& postData,
-                                                const std::string& username,
-                                                const std::string& token,
-                                                unsigned int gameID,
-                                                const std::string& richPresence)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::RCPostRichPresenceUrl");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::RCEnableRichPresence(const std::string& script)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::RCEnableRichPresence");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::RCGetRichPresenceEvaluation(std::string& evaluation,
-                                                      unsigned int consoleID)
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::RCGetRichPresenceEvaluation(std::string& evaluation,");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
-}
-
-GAME_ERROR CGameRetroArch::RCResetRuntime()
-{
-  kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::RCResetRuntime");
-  //return GAME_ERROR_NO_ERROR;
-  return GAME_ERROR_NOT_IMPLEMENTED;
 }
 
 ADDONCREATOR(CGameRetroArch)

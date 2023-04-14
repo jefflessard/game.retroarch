@@ -202,7 +202,7 @@ RUN mkdir -p /buildkit/build \
  && cd /usr/local \
  && cp --parents lib/intel_icd.x86_64.json lib/libvulkan.so lib/libvulkan_intel.so lib/libvulkan_radeon.so lib/radeon_icd.x86_64.json bin/vulkaninfo bin/retroarch-cg2glsl bin/retroarch /buildkit/game.retroarch/ \
  && cd /buildkit/game.retroarch \
- && sed -i 's|/buildkit/installdir/lib/||' lib/*_icd.x86_64.json \
+ && sed -i 's|/usr/local/lib/||' lib/*_icd.x86_64.json \
  && cd /buildkit \
  && zip -r game.retroarch.zip game.retroarch
 
