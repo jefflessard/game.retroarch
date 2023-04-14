@@ -7,7 +7,7 @@ This addon provides RetroArch on LibreElec x86-64 Generic build.
 * Automatically stops and restarts Kodi when running RetroArch
 * Can be launched in stand alone, from the Game menu
 * Can be launched from a ROM file (emulates a RetroPlayer Game Client)
-* Automatically import existing Kodi libretro core into RetroArch
+* Automatically import existing Kodi libretro cores into RetroArch
 
 ## game.libretro.mupen64plus-nx
 This addon provides Mupen64Plus-Next libretro core for N64 roms
