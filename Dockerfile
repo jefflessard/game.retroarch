@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     make g++ nasm \
     meson cmake glslang-tools python3-mako pkg-config autoconf libtool \
     libasound2-dev libudev-dev libgbm-dev libdrm-dev \
-    llvm libelf-dev byacc flex \
+    llvm-15 libelf-dev byacc flex \
     libpng-dev libgif-dev libjpeg-dev libcdio-dev libcdio++-dev libcrossguid-dev liblzo2-dev libass-dev libcurl4-openssl-dev libfstrcmp-dev libssl-dev libsqlite3-dev libtinyxml-dev libinput-dev libxkbcommon-dev flatbuffers-compiler libflatbuffers-dev
 
 
@@ -63,6 +63,7 @@ RUN mkdir -p /buildkit/Vulkan-Tools/build \
 
 RUN mkdir -p /buildkit/mesa/build \
  && cd /buildkit/mesa \
+ && update-alternatives --install /usr/bin/llvm-config llvm-config /usr/bin/llvm-config-15 100 \
  && meson setup build/ \
         -Dlibdir=lib \
         -Ddatadir=lib \
@@ -95,8 +96,47 @@ RUN mkdir -p /buildkit/mesa/build \
         -Dshader-cache=disabled \
         -Dshared-glapi=enabled \
         -Dvalgrind=disabled \
-        -Dvulkan-drivers=amd,intel \
+        -Dvulkan-drivers= \
  && ninja -C build/ install
+
+
+# build vullkan drivers seperatly to remove dependency on LLVM
+RUN mkdir -p /buildkit/mesa/build-vulkan \
+ && cd /buildkit/mesa \
+ && meson setup build-vulkan/ \
+        -Dlibdir=lib \
+        -Ddatadir=lib \
+        -Dvulkan-icd-dir=lib \
+        -Dbuild-tests=false \
+        -Ddri-drivers= \
+        -Ddri3=disabled \
+        -Degl=disabled \
+        -Dgallium-drivers= \
+        -Dgallium-extra-hud=false \
+        -Dgallium-nine=false \
+        -Dgallium-omx=disabled \
+        -Dgallium-opencl=disabled \
+        -Dgallium-va=disabled \
+        -Dgallium-vdpau=disabled \
+        -Dgallium-xa=disabled \
+        -Dgbm=enabled \
+        -Dgles1=disabled \
+        -Dgles2=disabled \
+        -Dglvnd=false \
+        -Dglx=disabled \
+        -Dlibunwind=disabled \
+        -Dllvm=false \
+        -Dlmsensors=disabled \
+        -Dopengl=false \
+        -Dosmesa=false \
+        -Dplatforms= \
+        -Dselinux=false \
+        -Dzlib=enabled \
+        -Dshader-cache=disabled \
+        -Dshared-glapi=disabled \
+        -Dvalgrind=disabled \
+        -Dvulkan-drivers=amd,intel \
+ && ninja -C build-vulkan/ install
 
 
 RUN cd /buildkit/RetroArch \

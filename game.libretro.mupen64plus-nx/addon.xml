@@ -10,7 +10,7 @@
 	<extension point="kodi.gameclient"
 			library_linux="game.libretro.mupen64plus-nx.so">
 		<platforms>Nintendo 64</platforms>
-		<extensions>n64|v64|z64|bin|u1</extensions>
+		<extensions>n64|v64|z64|bin|u1|zip</extensions>
 		<supports_vfs>true</supports_vfs>
 		<supports_standalone>false</supports_standalone>
 		<requires_opengl>true</requires_opengl>
