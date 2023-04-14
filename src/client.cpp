@@ -13,16 +13,11 @@
 GAME_ERROR CGameRetroArch::LaunchRetroArch(const std::string& core){
   kodi::Log(ADDON_LOG_INFO, "Launching RetroArch");
 
-  //std::string command ("System.Exec(retroarch-ctl,run)");
-  //int retval = CBuiltins::GetInstance().Execute(command);
-
   std::string command = "systemd-run,/storage/.kodi/addons/game.retroarch/bin/retroarch-ctl,run";
   if(core!=""){
     command += "," + core;
   }
   int retval = CUtil::RunCommandLine(command, false);
-
-  //int retval = system("/storage/.kodi/addons/game.retroarch/bin/retroarch-ctl run");
 
   if (retval){
     kodi::Log(ADDON_LOG_DEBUG, "RetroArch launched");
@@ -33,7 +28,6 @@ GAME_ERROR CGameRetroArch::LaunchRetroArch(const std::string& core){
   CloseGame();
 
   return GAME_ERROR_NO_ERROR;
-  //return GAME_ERROR_NOT_LOADED;
 }
 
 CGameRetroArch::CGameRetroArch()
@@ -109,33 +103,12 @@ game_input_topology* CGameRetroArch::GetTopology()
 {
   kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::GetTopology");
 
-/*
-  game_input_port* port = new game_input_port;
-  //port->type = GAME_PORT_CONTROLLER;
-  port->type = GAME_PORT_KEYBOARD;
-  port->port_id = "COM1";
-  port->force_connected = false;
-  port->accepted_devices = nullptr;
-  port->device_count = 0;
-
-  game_input_topology* t = new game_input_topology;
-  t->ports=port;
-  t->port_count=1;
-  t->player_limit=1;
-  return t;
-*/
-
   return nullptr;
 }
 
 void CGameRetroArch::FreeTopology(game_input_topology* topology)
 {
   kodi::Log(ADDON_LOG_DEBUG, "CGameRetroArch::FreeTopology");
-  /*
-  delete[] topology->ports->accepted_devices;
-  delete[] topology->ports;
-  delete topology;
-  */
 }
 
 void CGameRetroArch::SetControllerLayouts(const std::vector<kodi::addon::GameControllerLayout>& controllers)
