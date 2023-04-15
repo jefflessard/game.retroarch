@@ -4,3 +4,4 @@ Dockerfile
 build*
 game.retroarch/*.so
 *.zip
+README.md
