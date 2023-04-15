@@ -13,6 +13,8 @@
 GAME_ERROR CGameRetroArch::LaunchRetroArch(const std::string& core){
   kodi::Log(ADDON_LOG_INFO, "Launching RetroArch");
 
+  kodi::QueueNotification(QUEUE_INFO,"RetroArch","Launching RetroArch...");
+
   std::string command = "systemd-run,/storage/.kodi/addons/game.retroarch/bin/retroarch-ctl,run";
   if(core!=""){
     command += "," + core;

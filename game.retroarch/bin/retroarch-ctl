@@ -40,6 +40,7 @@ start(){
   export VK_ICD_FILENAMES="${ADDON_DIR}/lib/intel_icd.x86_64.json:${ADDON_DIR}/lib/radeon_icd.x86_64.json"
 
   [ "${DOWNLOAD_ASSETS:-true}" == "true" ] && assets "${ADDON_HOME}/.config/retroarch/assets"
+  [ "${DOWNLOAD_ASSETS:-true}" == "true" ] && autoconfig "${ADDON_HOME}/.config/retroarch/autoconfig"
   [ "${LINK_LIBRETRO_CORES:-true}" == "true" ] && cores "${ADDON_HOME}/.config/retroarch/cores"
 
   EXT="${ROM##*.}"
@@ -67,16 +68,30 @@ post(){
 
 assets(){
   ASSETS_DIR="${1:?No assets path provided. Usage: $(basename $0) assets TARGET_ASSETS_PATH}"
-  mkdir -p "${ASSETS_DIR}"
+  download https://buildbot.libretro.com/assets/frontend/assets.zip "${ASSETS_DIR}"
+}
 
-  if [ -z "$(ls -A """${ASSETS_DIR}""")" ]
+autoconfig(){
+  AUTOCONFIG_DIR="${1:?No auticonfig path provided. Usage: $(basename $0) autoconfig TARGET_AUTOCONFIG_PATH}"
+  download https://buildbot.libretro.com/assets/frontend/autoconfig.zip "${AUTOCONFIG_DIR}"
+}
+
+download(){
+  URL="${1:?No url to download provided}"
+  TARGET_DIR="${2:?No target path provided}"
+  DESC="${TARGET_DIR##*/}"
+  TMP="$(mktemp)"
+
+  mkdir -p "${TARGET_DIR}"
+
+  if [ -z "$(ls -A """${TARGET_DIR}""")" ]
   then
-    echo "assets empty: downloading assets..."
-    wget https://buildbot.libretro.com/assets/frontend/assets.zip
-    unzip -q assets.zip -d "${ASSETS_DIR}"
-    rm assets.zip
+    echo "${DESC} empty: downloading ${DESC}..."
+    wget "${URL}" -O "${TMP}"
+    unzip -q "${TMP}" -d "${TARGET_DIR}"
+    rm "${TMP}"
   else
-    echo "asssts present"
+    echo "${DESC} present"
   fi
 }
 
