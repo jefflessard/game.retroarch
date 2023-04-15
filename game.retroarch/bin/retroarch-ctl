@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ADDON_ID="game.retroarch"
-ADDON_DIR="$(dirname $0)"
-ADDON_DIR="${ADDON_DIR%/bin}"
+. /etc/profile
+oe_setup_addon "${ADDON_ID}"
 
 run(){
   ROM="$1"
@@ -25,23 +25,25 @@ enable(){
 
 pre(){
   systemctl stop kodi
-  echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor >/dev/null
-  echo high > /sys/class/drm/card0/device/power_dpm_force_performance_level
+
+  [ "${DOWNLOAD_ASSETS:-true}" == "true" ] && download https://buildbot.libretro.com/assets/frontend/assets.zip "${ADDON_HOME}/.config/retroarch/assets"
+  [ "${DOWNLOAD_ASSETS:-true}" == "true" ] && download https://buildbot.libretro.com/assets/frontend/autoconfig.zip "${ADDON_HOME}/.config/retroarch/autoconfig"
+  [ "${LINK_LIBRETRO_CORES:-true}" == "true" ] && cores "${ADDON_HOME}/.config/retroarch/cores"
+
+  if [ "${PERF_MODE:-true}" == "true" ]
+  then
+    echo "enabling performance mode"
+    echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor >/dev/null
+    echo high > /sys/class/drm/card0/device/power_dpm_force_performance_level
+  fi
 }
 
 start(){
   ROM="${1:-$ROM}"
 
-  . /etc/profile
-  oe_setup_addon "${ADDON_ID}"
-
   HOME="${ADDON_HOME}"
   export LD_LIBRARY_PATH="${ADDON_DIR}/lib/"
   export VK_ICD_FILENAMES="${ADDON_DIR}/lib/intel_icd.x86_64.json:${ADDON_DIR}/lib/radeon_icd.x86_64.json"
-
-  [ "${DOWNLOAD_ASSETS:-true}" == "true" ] && assets "${ADDON_HOME}/.config/retroarch/assets"
-  [ "${DOWNLOAD_ASSETS:-true}" == "true" ] && autoconfig "${ADDON_HOME}/.config/retroarch/autoconfig"
-  [ "${LINK_LIBRETRO_CORES:-true}" == "true" ] && cores "${ADDON_HOME}/.config/retroarch/cores"
 
   EXT="${ROM##*.}"
   [ "${EXT}" == "zip" ] && EXT=$(unzip -ql "${ROM}" | head -n3 | tail -n1 | cut -c 31-) && EXT="${EXT##*.}"
@@ -59,21 +61,31 @@ start(){
 }
 
 post(){
-  echo auto > /sys/class/drm/card0/device/power_dpm_force_performance_level
-  echo powersave | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor >/dev/null
+  if [ "${PERF_MODE:-true}" == "true" ]
+  then
+    echo "disabling performance mode"
+    echo auto > /sys/class/drm/card0/device/power_dpm_force_performance_level
+    echo powersave | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor >/dev/null
+  fi
+
   systemctl start kodi
-  sleep 2
-  kodi-send -a "RunAddon(script.games.rom.collection.browser)"
-}
 
-assets(){
-  ASSETS_DIR="${1:?No assets path provided. Usage: $(basename $0) assets TARGET_ASSETS_PATH}"
-  download https://buildbot.libretro.com/assets/frontend/assets.zip "${ASSETS_DIR}"
-}
-
-autoconfig(){
-  AUTOCONFIG_DIR="${1:?No auticonfig path provided. Usage: $(basename $0) autoconfig TARGET_AUTOCONFIG_PATH}"
-  download https://buildbot.libretro.com/assets/frontend/autoconfig.zip "${AUTOCONFIG_DIR}"
+  case "${RESTART_ACTION:-None}" in
+    "Execute Script")
+      echo "executing restart script ${RESTART_SCRIPT}"
+      [ "${RESTART_SCRIPT}" ] && "${RESTART_SCRIPT}" ${RESTART_SCRIPT_ARGS}
+      ;;
+    "Open Window")
+      sleep 2
+      echo "opening restart windowi ${RESTART_WINDOW}"
+      [ "${RESTART_WINDOW}" ] && kodi-send -a "ActivateWindow(${RESTART_WINDOW})"
+      ;;
+    "Builtin Function")
+      sleep 2
+      echo "executing restart bultin function ${RESTART_BUILTIN}"
+      [ "${RESTART_BUILTIN}" ] && kodi-send -a "${RESTART_BUILTIN}"
+      ;;
+  esac
 }
 
 download(){
@@ -91,7 +103,7 @@ download(){
     unzip -q "${TMP}" -d "${TARGET_DIR}"
     rm "${TMP}"
   else
-    echo "${DESC} present"
+    echo "${DESC} already present"
   fi
 }
 
@@ -106,6 +118,8 @@ cores(){
     core="${core##*/}"
     xml="${dir}addon.xml"
     so="${dir}${core}.so"
+
+    echo "importing core ${core}"
 
     [ -f "${so}" ] && ln -f -s "${so}" "${CORES_DIR}"
     [ -f "${xml}" ] && coreinfo "${xml}" > "${CORES_DIR}/${core}.info"
@@ -132,15 +146,8 @@ coreinfo(){
   sed -E 's/^extensions =/supported_extensions =/' | \
   sed -E 's/^provider-name =/authors =/' | \
   sed -E 's/^summary =/display_name =/'
-
-  # sed -E 's/^id =/corename =/' | \
-  # sed -E 's/^platforms =/system_name =/' | \
-  # sed -E 's/^name = "(.+) - (.+) \((.+)\)"$/manufacturer = "\1"\ndatabase = "\1 - \2"\ncorename = "\3"/' | \
-  # unused=id,platforms
-  # same=description,license
 }
 
-#echo "$(date) - $0 $@" >> /storage/.kodi/addons/game.retroarch/retroarch-ctl.log
 actions=$(grep -Eo '^[a-z1-9_]+\(\)' "$0" | grep -Eo '[a-z1-9_]+' | sed ':a; N; $!ba; s/\n/|/g')
 cmd="${1:?No command provided. Usage: $(basename """$0""") ${actions}}"
 echo "${cmd}" | grep -qE "^(${actions})$" || { echo "Unknown command ${cmd}. Usage: $(basename """$0""") ${actions}"; exit 1;}

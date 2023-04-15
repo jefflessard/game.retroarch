@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-   <category   label="30000">
-      <setting label="30001" type="bool"   id="DOWNLOAD_ASSETS"       default="true" />
-      <setting label="30002" type="bool"   id="LINK_LIBRETRO_CORES"   default="true" />
+   <category label="30000">
+      <setting label="30001" type="bool"       id="DOWNLOAD_ASSETS"       default="true" />
+      <setting label="30002" type="bool"       id="LINK_LIBRETRO_CORES"   default="true" />
+      <setting label="30003" type="bool"       id="PERF_MODE"             default="true" />
+      <setting type="sep"/>
+      <setting label="30004" type="select"     id="RESTART_ACTION"        default="None"   values="None|Open Window|Builtin Function|Execute Script" />
+      <setting label="30005" type="select"     id="RESTART_WINDOW"        default="Home"   values="Home|Games|Music|Pictures|TVChannels|TVGuide|Videos" subsetting="true" visible="eq(-1,Open Window)" />
+      <setting label="30006" type="text"       id="RESTART_BUILTIN"       default=""       subsetting="true" visible="eq(-2,Builtin Function)" />
+      <setting label="30007" type="executable" id="RESTART_SCRIPT"        default=""       subsetting="true" visible="eq(-3,Execute Script)" />
+      <setting label="30008" type="text"       id="RESTART_SCRIPT_ARGS"   default=""       subsetting="true" visible="eq(-4,Execute Script)" />
    </category>
 </settings>

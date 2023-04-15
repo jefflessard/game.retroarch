@@ -7,8 +7,33 @@ msgstr ""
 
 msgctxt "#30001"
 msgid "Download RetroArch Assets"
-msgstr ""
+msgstr "automatically download RetroArch assets and autoconfig on RetroArch start"
 
 msgctxt "#30002"
 msgid "Link libretro Cores"
+msgstr "automatically import existing Kodi libretro cores into RetroArch"
+
+msgctxt "#30003"
+msgid "Enable CPU/GPU performance mode"
+msgstr "set CPU and GPU performance mode when RetroArch is running"
+
+msgctxt "#30004"
+msgid "Kodi Restart Action"
+msgstr "launch the specified action after Kodi restarts"
+
+6msgctxt "#30005"
+msgid "Window"
+msgstr "open the specified Kodi window"
+
+msgctxt "#30006"
+msgid "Builtin Function"
+msgstr "run the specified Kodi builtin function"
+
+msgctxt "#30007"
+msgid "Script"
+msgstr "execute the specified custom shell script or executable"
+
+msgctxt "#30008"
+msgid "Script Args"
 msgstr ""
+

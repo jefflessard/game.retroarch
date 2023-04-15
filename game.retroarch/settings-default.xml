@@ -1,4 +1,10 @@
 <settings>
     <setting id="DOWNLOAD_ASSETS"      value="true" />
     <setting id="LINK_LIBRETRO_CORES"  value="true" />
+    <setting id="PERF_MODE"            value="true" />
+    <setting id="RESTART_ACTION"       value="None" />
+    <setting id="RESTART_WINDOW"       value="Home" />
+    <setting id="RESTART_BUILTIN"      value="" />
+    <setting id="RESTART_SCRIPT"       value="" />
+    <setting id="RESTART_SCRIPT_ARGS"  value="" />
 </settings>
