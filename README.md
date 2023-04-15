@@ -1,5 +1,11 @@
 # Kodi Game Addons built for LibreElec
 
+## Installation instructions
+
+1. Download desired addon(s) from [releases](https://github.com/jefflessard/game.retroarch/releases)
+2. Install downloaded addon(s) using Kodi's *Install from zip file*
+3. Open and edit installed addon(s) settings
+
 ## game.retroarch
 This addon provides RetroArch on [LibreElec x86-64 Generic](https://libreelec.tv/downloads/generic/) build.
 * Run on GBM/DRM with no dependencies on X11 nor Wayland
@@ -25,5 +31,5 @@ This addon provides RetroArch on [LibreElec x86-64 Generic](https://libreelec.tv
 ## game.libretro.mupen64plus-nx
 This addon provides Mupen64Plus-Next libretro core for N64 roms
 * Run on GBM/DRM with no dependencies on X11 nor Wayland
-* Built with parallel/GlideN64/angrylion RSP support
+* Built with parallel/GlideN64/angrylion RDP support
   * Only angrylion works in Kodi RetroPlayer but they can all be used in RetroArch
